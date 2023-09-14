@@ -10,9 +10,9 @@ public interface IUserService {
 
     public User addUser(User user);
     
-    // public User updateUser(User user);
+    public User updateUser(User user);
     
-    // public User deleteUser(Long id);
+    public User deleteUser(Long id);
 
     public List<User> findAll();
 }

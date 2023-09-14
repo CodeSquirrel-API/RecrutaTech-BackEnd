@@ -40,4 +40,32 @@ public class UserService implements IUserService {
     public List<User> findAll() {
         return userRepo.findAll();
     }
+
+    @Override
+    public User updateUser(User user) {
+        Optional<User> userOp = userRepo.findById(user.getId());
+
+        if (userOp.isPresent()) {
+            User existingUser = userOp.get();
+            existingUser.setName(user.getName());
+            existingUser.setEmail(user.getEmail());
+            existingUser.setCompany(user.getCompany());
+
+            return userRepo.save(existingUser);
+        } else {
+            throw new IllegalArgumentException("ID de usuário inválido");
+        }
+    }
+
+    @Override
+    public User deleteUser(Long id) {
+        Optional<User> userOp = userRepo.findById(id);
+
+        if (userOp.isPresent()) {
+            userRepo.deleteById(id);
+            return userOp.get();
+        } else {
+            throw new IllegalArgumentException("ID de usuário inválido");
+        }
+    }
 }

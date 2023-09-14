@@ -1,22 +1,26 @@
-package br.gov.sp.fatec.entity.user;
+package br.gov.sp.fatec.recrutatech.entity;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "usr_user")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Column(name = "usr_id")
     private Long id;
-
+   
     @Column(name = "usr_name")
     private String name;
 
     @Column(name = "usr_password")
+    
     private String password;
 
     @Column(name = "usr_email")

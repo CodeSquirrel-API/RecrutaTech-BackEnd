@@ -1,18 +1,19 @@
-package br.gov.sp.fatec.service;
+package br.gov.sp.fatec.recrutatech.service;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import br.gov.sp.fatec.entity.user.IUserService;
-import br.gov.sp.fatec.entity.user.User;
-import br.gov.sp.fatec.repository.IUserRepository;
+import br.gov.sp.fatec.recrutatech.entity.User;
+import br.gov.sp.fatec.recrutatech.repository.UserRepository;
 
-public class UserService implements IUserService{
+@Service
+public class UserService implements IUserService {
 
     @Autowired
-    private IUserRepository userRepo;
+    private UserRepository userRepo;
 
     public User findById(Long id) {
         Optional<User> userOp = userRepo.findById(id);
@@ -35,12 +36,8 @@ public class UserService implements IUserService{
         return userRepo.save(user);
     }
 
-
-
     @Override
     public List<User> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+        return userRepo.findAll();
     }
-
 }

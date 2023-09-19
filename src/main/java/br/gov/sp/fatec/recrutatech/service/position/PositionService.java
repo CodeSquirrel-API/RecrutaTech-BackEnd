@@ -1,5 +1,7 @@
 package br.gov.sp.fatec.recrutatech.service.position;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +26,27 @@ public class PositionService implements IPositionService {
         return positionRepo.save(position);
     }
 
+    @Override
+    public Position findByName(String name) {
+        Optional<Position> positionOp = positionRepo.findByName(name);
+
+        if (positionOp.isPresent()) {
+            return positionOp.get();
+        }
+
+        throw new IllegalArgumentException("Nome inválido");
+    }
+
+    @Override
+    public Position updatePosition(Position position) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updatePosition'");
+    }
+
+    @Override
+    public Position deletePosition(Long id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deletePosition'");
+    }
 
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.gov.sp.fatec.recrutatech.entity.User;
-import br.gov.sp.fatec.recrutatech.service.IUserService;
+import br.gov.sp.fatec.recrutatech.service.user.IUserService;
 import io.swagger.annotations.Api;
 
 @RestController

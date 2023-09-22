@@ -1,4 +1,4 @@
-package br.gov.sp.fatec.recrutatech.service;
+package br.gov.sp.fatec.recrutatech.service.user;
 
 import java.util.List;
 

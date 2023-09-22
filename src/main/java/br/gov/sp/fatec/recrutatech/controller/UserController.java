@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.gov.sp.fatec.recrutatech.entity.User;
-import br.gov.sp.fatec.recrutatech.service.IUserService;
+import br.gov.sp.fatec.recrutatech.service.user.IUserService;
 import io.swagger.annotations.Api;
 
 @RestController
@@ -37,7 +38,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/create")
-    public User addUser(User user) {
+    public User addUser(@RequestBody User user) {
         return service.addUser(user);
     }
 

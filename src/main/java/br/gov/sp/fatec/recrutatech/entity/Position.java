@@ -20,7 +20,7 @@ public class Position {
     @Column(name = "pst_name")
     private String name;
 
-    @Column(name = "pst_cha")
+    @Column(name = "pst_cha", length = 1000)
     private String cha;
     
     @Column(name = "pst_experience")

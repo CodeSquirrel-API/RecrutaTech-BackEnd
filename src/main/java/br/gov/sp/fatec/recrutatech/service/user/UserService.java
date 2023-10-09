@@ -29,7 +29,9 @@ public class UserService implements IUserService {
         if (user == null ||
                 user.getName() == null ||
                 user.getPassword() == null ||
-                user.getCompany() == null) {
+                user.getCpf_cnpj() == null ||
+                user.getEmail() == null ||
+                user.getUserType() == null) {
             throw new IllegalArgumentException("Informações do usuário incompletas.");
         }
 
@@ -49,8 +51,10 @@ public class UserService implements IUserService {
             User existingUser = userOp.get();
             existingUser.setName(user.getName());
             existingUser.setEmail(user.getEmail());
-            existingUser.setCompany(user.getCompany());
-
+            existingUser.setCpf_cnpj(user.getCpf_cnpj());
+            existingUser.setPassword(user.getPassword());
+            existingUser.setUserType(user.getUserType());
+            
             return userRepo.save(existingUser);
         } else {
             throw new IllegalArgumentException("ID de usuário inválido");

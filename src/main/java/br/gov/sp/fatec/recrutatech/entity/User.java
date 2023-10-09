@@ -20,25 +20,27 @@ public class User {
     private String name;
 
     @Column(name = "usr_password")
-    
     private String password;
 
     @Column(name = "usr_email")
     private String email;
 
-    @Column(name = "usr_company")
-    private String company;
+    @Column(name = "usr_cpf_cnpj")
+    private String cpf_cnpj;
+    
+    @Column(name = "usr_type")
+    private Integer userType;
 
     public User() {
     }
 
-    public User(String name, String password, String email, String company) {
+    public User(String name, String password, String email, String cpf_cnpj, Integer userType) {
         this();
         this.name = name;
         this.password = password;
         this.email = email;
-        this.company = company;
-
+        this.cpf_cnpj = cpf_cnpj;
+        this.userType = userType;
     }
 
     public Long getId() {
@@ -72,13 +74,22 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    public String getCompany() {
-        return company;
+
+    public String getCpf_cnpj() {
+        return cpf_cnpj;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
+    public void setCpf_cnpj(String cpf_cnpj) {
+        this.cpf_cnpj = cpf_cnpj;
     }
+
+    public Integer getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Integer userType) {
+        this.userType = userType;
+    }
+    
 
 }

@@ -19,7 +19,9 @@ public class PositionService implements IPositionService {
     public Position addPosition(Position position) {
         if (position == null ||
                 position.getName() == null ||
-                position.getCha() == null ||
+                position.getKnowledge() == null ||
+                position.getSkill() == null ||
+                position.getAttitude() == null ||
                 position.getExperience() == null) {
             throw new IllegalArgumentException("Informações do usuário incompletas.");
         }
@@ -39,15 +41,29 @@ public class PositionService implements IPositionService {
     }
 
     @Override
-    public Position updatePosition(Position position) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updatePosition'");
+    public Position updatePosition(Position updatedPosition) {
+        Long id = updatedPosition.getId();
+
+        Position existingPosition = positionRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Posição não encontrada com o ID fornecido: " + id));
+
+        existingPosition.setName(updatedPosition.getName());
+        existingPosition.setKnowledge(updatedPosition.getKnowledge());
+        existingPosition.setSkill(updatedPosition.getSkill());
+        existingPosition.setAttitude(updatedPosition.getAttitude());
+        existingPosition.setExperience(updatedPosition.getExperience());
+
+        return positionRepo.save(existingPosition);
     }
 
     @Override
     public Position deletePosition(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deletePosition'");
+        Position existingPosition = positionRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Posição não encontrada com o ID fornecido: " + id));
+
+        positionRepo.delete(existingPosition);
+
+        return existingPosition;
     }
 
     @Override
@@ -65,6 +81,5 @@ public class PositionService implements IPositionService {
 
         throw new IllegalArgumentException("Id inválido");
     }
-
 
 }

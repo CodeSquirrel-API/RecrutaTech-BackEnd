@@ -20,23 +20,29 @@ public class Position {
     @Column(name = "pst_name")
     private String name;
 
-    @Column(name = "pst_cha", length = 1000)
-    private String cha;
-    
+    @Column(name = "pst_knowledge", length = 1000)
+    private String knowledge;
+
+    @Column(name = "pst_skill", length = 1000)
+    private String skill;
+
+    @Column(name = "pst_attitude", length = 1000)
+    private String attitude;
+
     @Column(name = "pst_experience")
     private ExperienceType experience;
-    
-    public Position(){
-        
-    } 
 
-    public Position(String name, String cha, ExperienceType experience){
-        this();
+    public Position() {
+
+    }
+
+    public Position(String name, String knowledge, String skill, String attitude, ExperienceType experience) {
         this.name = name;
-        this.cha = cha;
+        this.knowledge = knowledge;
+        this.skill = skill;
+        this.attitude = attitude;
         this.experience = experience;
-
-    } 
+    }
 
     public Long getId() {
         return id;
@@ -54,12 +60,28 @@ public class Position {
         this.name = name;
     }
 
-    public String getCha() {
-        return cha;
+    public String getKnowledge() {
+        return knowledge;
     }
 
-    public void setCha(String cha) {
-        this.cha = cha;
+    public void setKnowledge(String knowledge) {
+        this.knowledge = knowledge;
+    }
+
+    public String getSkill() {
+        return skill;
+    }
+
+    public void setSkill(String skill) {
+        this.skill = skill;
+    }
+
+    public String getAttitude() {
+        return attitude;
+    }
+
+    public void setAttitude(String attitude) {
+        this.attitude = attitude;
     }
 
     public ExperienceType getExperience() {
@@ -69,6 +91,5 @@ public class Position {
     public void setExperience(ExperienceType experience) {
         this.experience = experience;
     }
-
 
 }

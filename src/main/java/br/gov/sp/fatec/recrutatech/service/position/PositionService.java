@@ -1,5 +1,6 @@
 package br.gov.sp.fatec.recrutatech.service.position;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class PositionService implements IPositionService {
 
     @Override
     public Position findByName(String name) {
-        Optional<Position> positionOp = positionRepo.findByName(name);
+        Optional<Position> positionOp = positionRepo.findByNameContaining(name);
 
         if (positionOp.isPresent()) {
             return positionOp.get();
@@ -48,5 +49,22 @@ public class PositionService implements IPositionService {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deletePosition'");
     }
+
+    @Override
+    public List<Position> findAll() {
+        return positionRepo.findAll();
+    }
+
+    @Override
+    public Position findById(Long id) {
+        Optional<Position> positionOp = positionRepo.findById(id);
+
+        if (positionOp.isPresent()) {
+            return positionOp.get();
+        }
+
+        throw new IllegalArgumentException("Id inválido");
+    }
+
 
 }

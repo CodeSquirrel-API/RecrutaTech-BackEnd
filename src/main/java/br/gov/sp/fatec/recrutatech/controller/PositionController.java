@@ -1,5 +1,7 @@
 package br.gov.sp.fatec.recrutatech.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +28,16 @@ public class PositionController {
     @GetMapping(value = "/getByName/{name}")
     public Position findByName(@PathVariable("name") String name) {
         return service.findByName(name);
+    }
+
+    @GetMapping(value = "/getById/{id}")
+    public Position findByName(@PathVariable("id") Long id) {
+        return service.findById(id);
+    }
+
+    @GetMapping(value = "/getAll")
+    public List<Position> findAllPositions() {
+        return service.findAll();
     }
 
     @PostMapping(value = "/create")

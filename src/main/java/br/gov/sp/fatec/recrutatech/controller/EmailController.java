@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import br.gov.sp.fatec.recrutatech.dto.emailDto;
 import br.gov.sp.fatec.recrutatech.dto.messageDto;
 import br.gov.sp.fatec.recrutatech.service.email.EmailService;
 import io.swagger.annotations.Api;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.mail.MessagingException;
 
 @RestController
@@ -44,9 +46,9 @@ public class EmailController {
     // }
 
     @PostMapping("/validar-code")
-    public void sendEmailCode(@RequestBody String subject, @RequestBody String email, @RequestBody String content) {
+    public void sendEmailCode(@RequestBody emailDto email) {
         try {
-            emailService.sendEmailAuth(subject, email, content);
+            emailService.sendEmailAuth(email);
         } catch (MessagingException e) {
             e.printStackTrace();
         }

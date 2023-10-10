@@ -9,6 +9,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import br.gov.sp.fatec.recrutatech.dto.emailDto;
 import br.gov.sp.fatec.recrutatech.entity.Email;
 import br.gov.sp.fatec.recrutatech.repository.EmailRepository;
 import jakarta.mail.MessagingException;
@@ -24,7 +25,7 @@ public class EmailService {
 
     @Value("${spring.mail.username}")
     private String supportEmail;
-    
+
     public Email sendEmail(Email email) {
 
         try {
@@ -41,7 +42,8 @@ public class EmailService {
             sender.send(message);
         } catch (MailException ex) {
             email.setSend(false);
-            // log.warn("Erro na tentativa de envio de email. Message: {}", ex.getMessage());
+            // log.warn("Erro na tentativa de envio de email. Message: {}",
+            // ex.getMessage());
         } finally {
             repository.save(email);
         }
@@ -49,16 +51,15 @@ public class EmailService {
         return email;
     }
 
-
-    public void sendEmailAuth(String subject, String email, String content ) throws MessagingException{
+    public void sendEmailAuth(emailDto email) throws MessagingException {
         MimeMessage mail = sender.createMimeMessage();
 
         MimeMessageHelper message = new MimeMessageHelper(mail);
 
-        message.setSubject(subject);
-        message.setText(content, true);
+        message.setSubject(email.subject);
+        message.setText(email.content, true);
         message.setFrom(supportEmail);
-        message.setTo(email);
+        message.setTo(email.email);
 
         sender.send(mail);
 

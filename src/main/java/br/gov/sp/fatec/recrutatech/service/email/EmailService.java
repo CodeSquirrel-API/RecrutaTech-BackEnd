@@ -2,13 +2,17 @@ package br.gov.sp.fatec.recrutatech.service.email;
 
 import java.time.LocalDateTime;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import br.gov.sp.fatec.recrutatech.entity.Email;
 import br.gov.sp.fatec.recrutatech.repository.EmailRepository;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -18,6 +22,9 @@ public class EmailService {
     private final EmailRepository repository;
     private final JavaMailSender sender;
 
+    @Value("${spring.mail.username}")
+    private String supportEmail;
+    
     public Email sendEmail(Email email) {
 
         try {
@@ -40,5 +47,20 @@ public class EmailService {
         }
 
         return email;
+    }
+
+
+    public void sendEmailAuth(String subject, String email, String content ) throws MessagingException{
+        MimeMessage mail = sender.createMimeMessage();
+
+        MimeMessageHelper message = new MimeMessageHelper(mail);
+
+        message.setSubject(subject);
+        message.setText(content, true);
+        message.setFrom(supportEmail);
+        message.setTo(email);
+
+        sender.send(mail);
+
     }
 }

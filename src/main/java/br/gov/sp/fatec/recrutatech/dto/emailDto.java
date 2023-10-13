@@ -3,16 +3,41 @@ package br.gov.sp.fatec.recrutatech.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
-public class emailDto {
+public class EmailDto {
 
     @NotBlank
-    public String subject;
-
-    @NotBlank
-    @Email
-    public String email;
+    private String subject;
 
     @NotBlank
     @Email
-    public String content;
+    private String email;
+
+    @NotBlank
+    @Email
+    private String content;
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+    
 }

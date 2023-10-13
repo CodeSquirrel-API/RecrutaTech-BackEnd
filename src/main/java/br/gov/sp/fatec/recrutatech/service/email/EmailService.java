@@ -1,19 +1,18 @@
 package br.gov.sp.fatec.recrutatech.service.email;
 
 import java.time.LocalDateTime;
+import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import br.gov.sp.fatec.recrutatech.dto.emailDto;
+import br.gov.sp.fatec.recrutatech.dto.EmailDto;
 import br.gov.sp.fatec.recrutatech.entity.Email;
 import br.gov.sp.fatec.recrutatech.repository.EmailRepository;
 import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -51,17 +50,16 @@ public class EmailService {
         return email;
     }
 
-    public void sendEmailAuth(emailDto email) throws MessagingException {
-        MimeMessage mail = sender.createMimeMessage();
+    public void sendEmailAuth(EmailDto email) throws MessagingException {
 
-        MimeMessageHelper message = new MimeMessageHelper(mail);
+        SimpleMailMessage message = new SimpleMailMessage();
 
-        message.setSubject(email.subject);
-        message.setText(email.content, true);
         message.setFrom(supportEmail);
-        message.setTo(email.email);
+        message.setSubject(email.getSubject());
+        message.setText(email.getContent());
+        message.setTo(email.getEmail());
 
-        sender.send(mail);
-
+        sender.send(message);
     }
+
 }

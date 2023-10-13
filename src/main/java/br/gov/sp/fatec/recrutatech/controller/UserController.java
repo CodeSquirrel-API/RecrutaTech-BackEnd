@@ -3,6 +3,7 @@ package br.gov.sp.fatec.recrutatech.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.gov.sp.fatec.recrutatech.entity.User;
+import br.gov.sp.fatec.recrutatech.repository.UserRepository;
 import br.gov.sp.fatec.recrutatech.service.user.IUserService;
 import io.swagger.annotations.Api;
 
@@ -26,6 +28,8 @@ public class UserController {
 
     @Autowired
     private IUserService service;
+    @Autowired
+    private PasswordEncoder encoder;
 
     @GetMapping(value = "/getAll")
     public List<User> findUsers() {
@@ -39,6 +43,12 @@ public class UserController {
 
     @PostMapping(value = "/create")
     public User addUser(@RequestBody User user) {
+        return service.addUser(user);
+    }
+    
+      @PostMapping(value = "/createsenhacrip")
+    public User addUserCrip(@RequestBody User user) {
+        user.setPassword(encoder.encode(user.getPassword()));
         return service.addUser(user);
     }
 

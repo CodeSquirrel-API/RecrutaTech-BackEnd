@@ -1,20 +1,29 @@
 package br.gov.sp.fatec.recrutatech.service.authentication;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import br.gov.sp.fatec.recrutatech.entity.User;
+import br.gov.sp.fatec.recrutatech.repository.UserRepository;
+
 
 @Service
-public class AuthenticationService implements IAuthenticationService{
+public class AuthenticationService implements UserDetailsService{
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
-    public Boolean sendEmail(String email) {
-        throw new UnsupportedOperationException("Unimplemented method 'sendEmail'");
+public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    User user = (User) userRepository.findByEmail(email);
+    if (user == null) {
+        throw new UsernameNotFoundException("User not found with email: " + email);
     }
-
-    @Override
-    public Boolean verifyCode(User user, String code) {
-        throw new UnsupportedOperationException("Unimplemented method 'verifyCode'");
-    }
-
+    return user;
 }
+    
+    }
+

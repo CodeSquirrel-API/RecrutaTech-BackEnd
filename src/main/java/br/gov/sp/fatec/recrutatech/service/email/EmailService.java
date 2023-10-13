@@ -1,7 +1,6 @@
 package br.gov.sp.fatec.recrutatech.service.email;
 
 import java.time.LocalDateTime;
-import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;

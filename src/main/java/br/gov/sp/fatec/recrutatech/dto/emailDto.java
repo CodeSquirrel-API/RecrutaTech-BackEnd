@@ -1,5 +1,4 @@
 package br.gov.sp.fatec.recrutatech.dto;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 

@@ -22,13 +22,13 @@ public class EmailController {
     @Autowired
     private EmailService emailService;
 
-    @PostMapping("/validar-code")
-    public void sendEmailCode(@RequestBody EmailDto email) {
-        try {
-            emailService.sendEmailAuth(email);
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
+    // @PostMapping("/validar-code")
+    // public void sendEmailCode(@RequestBody EmailDto email) {
+        // try {
+        //     emailService.sendEmailAuth(email);
+        // } catch (MessagingException e) {
+        //     e.printStackTrace();
+        // }
 
-    }
+    // }
 }

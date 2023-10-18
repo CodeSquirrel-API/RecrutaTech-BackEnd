@@ -19,15 +19,6 @@ public class EmailService {
 
     private final HashMap codigos = new HashMap();
 
-    // @Value("${spring.mail.username}")
-    // private String supportEmail;
-
-    // @Value(value = "${spring.mail.host}")
-    // private String smtpHost;
-
-    // @Value(value = "${spring.mail.port}")
-    // private String smtpPort;
-
     public void sendVerificationCodeEmail(EmailDto email) {
         EmailConfig emailConfig = new EmailConfig();
         JavaMailSender emailSender = emailConfig.javaMailSender();

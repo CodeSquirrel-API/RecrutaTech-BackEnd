@@ -7,9 +7,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.gov.sp.fatec.recrutatech.dto.CodeRequestDto;
+import br.gov.sp.fatec.recrutatech.dto.CodeResponseDto;
 import br.gov.sp.fatec.recrutatech.dto.EmailDto;
 import br.gov.sp.fatec.recrutatech.service.email.EmailService;
 import io.swagger.annotations.Api;
@@ -20,7 +21,6 @@ import io.swagger.annotations.Api;
 @Api(tags = "Email")
 public class EmailController {
 
-    
     @Autowired
     private EmailService emailService;
 
@@ -36,15 +36,13 @@ public class EmailController {
     }
 
     @PostMapping("/check-code")
-    public ResponseEntity<String> verificarCodigo(
-            @RequestParam String email,
-            @RequestParam Integer codigo) {
+    public ResponseEntity<CodeResponseDto> checkCode(@RequestBody CodeRequestDto request) {
+        boolean isValid = emailService.checkCode(request.getEmail(), request.getCode());
+        String msg = isValid ? "Código correto!" : "Código incorreto!";
 
-        if (emailService.checkCode(email, codigo)) {
-            return ResponseEntity.ok("Código correto!");
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Código incorreto!");
-        }
+        CodeResponseDto responseDto = new CodeResponseDto(isValid, msg);
+
+        return ResponseEntity.ok(responseDto);
     }
 
 }

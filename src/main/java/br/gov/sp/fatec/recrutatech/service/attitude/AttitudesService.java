@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.gov.sp.fatec.recrutatech.entity.Attitude;
-import br.gov.sp.fatec.recrutatech.entity.Knowledge;
 import br.gov.sp.fatec.recrutatech.repository.AttitudeRepository;
 
 @Service

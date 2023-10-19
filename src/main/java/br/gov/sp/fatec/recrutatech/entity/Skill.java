@@ -1,12 +1,13 @@
 package br.gov.sp.fatec.recrutatech.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 
@@ -27,9 +28,8 @@ public class Skill {
     @Column(name = "skl_description")
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "candidate_id")
-    private Candidate candidate;
+    @ManyToMany(mappedBy = "skillsList")
+    private List<Candidate> candidates;
 
     public Long getId() {
         return id;

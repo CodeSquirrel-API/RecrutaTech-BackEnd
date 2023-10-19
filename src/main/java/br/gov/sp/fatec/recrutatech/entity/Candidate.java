@@ -6,7 +6,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 import java.util.List;
@@ -32,13 +34,16 @@ public class Candidate {
     @Column(name = "cnd_experiences")
     private String experiences;
 
-    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "candidate_knowledge", joinColumns = @JoinColumn(name = "cnd_id"), inverseJoinColumns = @JoinColumn(name = "knw_id"))
     private List<Knowledge> knowledgeList;
 
-    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "candidate_skill", joinColumns = @JoinColumn(name = "cnd_id"), inverseJoinColumns = @JoinColumn(name = "knw_id"))
     private List<Skill> skillsList;
 
-    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "candidate_attitude", joinColumns = @JoinColumn(name = "cnd_id"), inverseJoinColumns = @JoinColumn(name = "knw_id"))
     private List<Attitude> attitudeList;
 
     public Candidate() {

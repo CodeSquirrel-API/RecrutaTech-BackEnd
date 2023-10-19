@@ -17,12 +17,8 @@ public class SkillService implements ISkillService {
 
     public Skill findById(Long id) {
         Optional<Skill> skillOp = skillRepo.findById(id);
-
-        if (skillOp.isPresent()) {
-            return skillOp.get();
-        }
-
-        throw new IllegalArgumentException("Id inválido");
+    
+        return skillOp.orElse(null);
     }
 
     public List<Skill> getAllSkills() {

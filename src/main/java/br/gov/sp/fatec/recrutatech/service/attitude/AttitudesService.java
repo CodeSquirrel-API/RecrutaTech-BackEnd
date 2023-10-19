@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.gov.sp.fatec.recrutatech.entity.Attitude;
+import br.gov.sp.fatec.recrutatech.entity.Knowledge;
 import br.gov.sp.fatec.recrutatech.repository.AttitudeRepository;
 
 @Service
@@ -16,13 +17,9 @@ public class AttitudesService implements IAttitudeService {
     private AttitudeRepository attitudeRepo;
 
     public Attitude findById(Long id) {
-        Optional<Attitude> attitudeOp = attitudeRepo.findById(id);
+        Optional<Attitude> skillOp = attitudeRepo.findById(id);
 
-        if (attitudeOp.isPresent()) {
-            return attitudeOp.get();
-        }
-
-        throw new IllegalArgumentException("Id inválido");
+        return skillOp.orElse(null);
     }
 
     public List<Attitude> getAllAttitudes() {

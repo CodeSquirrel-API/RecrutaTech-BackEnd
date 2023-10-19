@@ -10,7 +10,7 @@ import br.gov.sp.fatec.recrutatech.entity.Candidate;
 import br.gov.sp.fatec.recrutatech.repository.CandidateRepository;
 
 @Service
-public class CandidateService {
+public class CandidateService implements ICandidateService{
 
     @Autowired
     private CandidateRepository candidateRepo;
@@ -29,20 +29,20 @@ public class CandidateService {
         return candidateRepo.findAll();
     }
 
-    public List<Candidate> addCandidates(List<Candidate> candidates) {
-        if (candidates == null || candidates.isEmpty()) {
+    public Candidate addCandidates(Candidate candidates) {
+        if (candidates == null ) {
             throw new IllegalArgumentException("Lista de candidatos vazia ou nula.");
         }
 
-        return candidateRepo.saveAll(candidates);
+        return candidateRepo.save(candidates);
     }
 
-    public List<Candidate> updateCandidates(List<Candidate> candidates) {
-        if (candidates == null || candidates.isEmpty()) {
+    public Candidate updateCandidates(Candidate candidates) {
+        if (candidates == null) {
             throw new IllegalArgumentException("Lista de candidatos vazia ou nula.");
         }
 
-        return candidateRepo.saveAll(candidates);
+        return candidateRepo.save(candidates);
     }
 
     public Candidate deleteCandidate(Long id) {

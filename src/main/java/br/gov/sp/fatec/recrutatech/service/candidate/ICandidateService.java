@@ -9,9 +9,9 @@ public interface ICandidateService {
 
     List<Candidate> getAllCandidates();
 
-    List<Candidate> addCandidates(List<Candidate> candidates);
+    Candidate addCandidates(Candidate candidates);
 
-    List<Candidate> updateCandidates(List<Candidate> candidates);
+    Candidate updateCandidates(Candidate candidates);
 
     Candidate deleteCandidate(Long id);
 }

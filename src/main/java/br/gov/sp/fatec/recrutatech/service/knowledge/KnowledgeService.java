@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.gov.sp.fatec.recrutatech.entity.Knowledge;
+import br.gov.sp.fatec.recrutatech.entity.Skill;
 import br.gov.sp.fatec.recrutatech.repository.KnowledgeRepository;
 
 @Service
@@ -16,13 +17,9 @@ public class KnowledgeService implements IKnowledgeService {
     private KnowledgeRepository knowledgeRepo;
 
     public Knowledge findById(Long id) {
-        Optional<Knowledge> knowledgeOp = knowledgeRepo.findById(id);
+        Optional<Knowledge> skillOp = knowledgeRepo.findById(id);
 
-        if (knowledgeOp.isPresent()) {
-            return knowledgeOp.get();
-        }
-
-        throw new IllegalArgumentException("Id inválido");
+        return skillOp.orElse(null);
     }
 
     public List<Knowledge> getAllKnowledges() {

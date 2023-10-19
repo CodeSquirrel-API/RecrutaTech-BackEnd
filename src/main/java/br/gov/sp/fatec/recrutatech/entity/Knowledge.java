@@ -5,26 +5,31 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
-
 
 @Entity
 @Table(name = "knw_knowledge")
 public class Knowledge {
- 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "knw_id")
     private Long id;
-    
+
     @Size(max = 64)
     @Column(unique = true, name = "knw_name")
     private String name;
-    
+
     @Size(max = 255)
     @Column(name = "knw_description")
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "candidate_id")
+    private Candidate candidate;
 
     public Long getId() {
         return id;

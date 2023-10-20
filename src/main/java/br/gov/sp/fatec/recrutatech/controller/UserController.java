@@ -41,12 +41,9 @@ public class UserController {
         return service.findById(id);
     }
 
-    @PostMapping(value = "/create")
-    public User addUser(@RequestBody User user) {
-        return service.addUser(user);
-    }
     
-      @PostMapping(value = "/createsenhacrip")
+    
+      @PostMapping(value = "/create")
     public User addUserCrip(@RequestBody User user) {
         user.setPassword(encoder.encode(user.getPassword()));
         return service.addUser(user);

@@ -30,7 +30,12 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
             // this disables session creation on Spring Security
-            .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+            .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests(authorize -> {
+                authorize
+                    .requestMatchers("/login/**").permitAll()
+                    .requestMatchers("/user/**").hasRole("USER");
+            });
         return http.build();
     }
 

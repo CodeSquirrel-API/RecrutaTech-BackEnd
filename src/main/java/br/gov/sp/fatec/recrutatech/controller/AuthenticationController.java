@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,15 +29,15 @@ public class AuthenticationController {
     @Autowired
     private TokenService tokenService;
 
-    private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
+    //private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
 
 
     @PostMapping("/login")
-    public String login (@RequestBody Login login){
+    public String login (@RequestBody Login login) throws UsernameNotFoundException{
 
-        logger.info("Received Login object: {}-{}", login.getEmail(),login.getPassword());
+    
 
-
+        //logger.info("Received Login object: {}-{}", login.getEmail(),login.getPassword());
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(login.getEmail(),login.getPassword());
         Authentication authentication =  this.authenticationManager.authenticate(usernamePasswordAuthenticationToken);

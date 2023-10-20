@@ -24,8 +24,12 @@ public class Candidate {
     @Column(name = "cnd_id")
     private Long id;
 
-    @Column(name = "cnd_name")
+    @Column(name = "cnd_name", unique = true)
     private String name;
+ 
+    @Column(name = "cnd_email")
+    private String email;
+
 
     @Column(name = "cnd_age")
     private Integer age;
@@ -52,7 +56,7 @@ public class Candidate {
     }
 
     public Candidate(String name, Integer age, String currentProfession, String currentCompany, ExperienceType experience,
-            List<Knowledge> knowledgeList, List<Skill> skillsList, List<Attitude> attitudeList) {
+            List<Knowledge> knowledgeList, List<Skill> skillsList, List<Attitude> attitudeList, String email) {
         this.name = name;
         this.age = age;
         this.currentProfession = currentProfession;
@@ -60,6 +64,16 @@ public class Candidate {
         this.knowledgeList = knowledgeList;
         this.skillsList = skillsList;
         this.attitudeList = attitudeList;
+        this.email = email;
+    }
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Long getId() {

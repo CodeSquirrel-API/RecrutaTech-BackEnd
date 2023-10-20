@@ -13,6 +13,8 @@ import jakarta.persistence.Table;
 
 import java.util.List;
 
+import br.gov.sp.fatec.recrutatech.enums.ExperienceType;
+
 @Entity
 @Table(name = "candidates")
 public class Candidate {
@@ -31,8 +33,8 @@ public class Candidate {
     @Column(name = "cnd_current_profession")
     private String currentProfession;
 
-    @Column(name = "cnd_experiences")
-    private String experiences;
+    @Column(name = "cnd_experience")
+    private ExperienceType experience;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "candidate_knowledge", joinColumns = @JoinColumn(name = "cnd_id"), inverseJoinColumns = @JoinColumn(name = "knw_id"))
@@ -49,12 +51,12 @@ public class Candidate {
     public Candidate() {
     }
 
-    public Candidate(String name, Integer age, String currentProfession, String currentCompany, String experiences,
+    public Candidate(String name, Integer age, String currentProfession, String currentCompany, ExperienceType experience,
             List<Knowledge> knowledgeList, List<Skill> skillsList, List<Attitude> attitudeList) {
         this.name = name;
         this.age = age;
         this.currentProfession = currentProfession;
-        this.experiences = experiences;
+        this.experience = experience;
         this.knowledgeList = knowledgeList;
         this.skillsList = skillsList;
         this.attitudeList = attitudeList;
@@ -92,12 +94,12 @@ public class Candidate {
         this.currentProfession = currentProfession;
     }
 
-    public String getExperiences() {
-        return experiences;
+    public ExperienceType getExperiences() {
+        return experience;
     }
 
-    public void setExperiences(String experiences) {
-        this.experiences = experiences;
+    public void setExperiences(ExperienceType experience) {
+        this.experience = experience;
     }
 
     public List<Knowledge> getKnowledgeList() {

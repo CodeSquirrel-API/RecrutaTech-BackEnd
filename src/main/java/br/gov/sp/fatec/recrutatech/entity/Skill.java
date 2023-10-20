@@ -2,6 +2,7 @@ package br.gov.sp.fatec.recrutatech.entity;
 
 import java.util.List;
 
+import br.gov.sp.fatec.recrutatech.enums.ExperienceType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +31,17 @@ public class Skill {
 
     @ManyToMany(mappedBy = "skillsList")
     private List<Candidate> candidates;
+
+    @Column(name = "skl_experience")
+    private ExperienceType experience;
+
+    public ExperienceType getExperience() {
+        return experience;
+    }
+
+    public void setExperience(ExperienceType experience) {
+        this.experience = experience;
+    }
 
     public Long getId() {
         return id;

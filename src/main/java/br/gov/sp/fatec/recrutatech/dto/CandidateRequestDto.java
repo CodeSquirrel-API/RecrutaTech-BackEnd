@@ -2,12 +2,14 @@ package br.gov.sp.fatec.recrutatech.dto;
 
 import java.util.List;
 
+import br.gov.sp.fatec.recrutatech.enums.ExperienceType;
+
 public class CandidateRequestDto {
     private Long id;
     private String name;
     private Integer age;
     private String currentProfession;
-    private String experiences;
+    private ExperienceType experience;
     private List<Long> knowledgeList;
     private List<Long> skillsList;
     private List<Long> attitudeList;
@@ -44,12 +46,12 @@ public class CandidateRequestDto {
         this.currentProfession = currentProfession;
     }
 
-    public String getExperiences() {
-        return experiences;
+    public ExperienceType getExperiences() {
+        return experience;
     }
 
-    public void setExperiences(String experiences) {
-        this.experiences = experiences;
+    public void setExperiences(ExperienceType experience) {
+        this.experience = experience;
     }
 
     public List<Long> getKnowledgeList() {

@@ -54,6 +54,7 @@ public class CandidateController {
     public ResponseEntity<?> addCandidate(@RequestBody CandidateRequestDto candidateRequest) {
         Candidate candidate = new Candidate();
         candidate.setName(candidateRequest.getName());
+        candidate.setEmail(candidateRequest.getEmail());
         candidate.setAge(candidateRequest.getAge());
         candidate.setCurrentProfession(candidateRequest.getCurrentProfession());
         candidate.setExperiences(candidateRequest.getExperiences());
@@ -102,6 +103,7 @@ public class CandidateController {
         candidate.setId(candidateRequest.getId());
         candidate.setName(candidateRequest.getName());
         candidate.setAge(candidateRequest.getAge());
+        candidate.setEmail(candidateRequest.getEmail());
         candidate.setCurrentProfession(candidateRequest.getCurrentProfession());
         candidate.setExperiences(candidateRequest.getExperiences());
 

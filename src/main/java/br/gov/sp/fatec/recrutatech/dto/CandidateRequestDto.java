@@ -7,6 +7,7 @@ import br.gov.sp.fatec.recrutatech.enums.ExperienceType;
 public class CandidateRequestDto {
     private Long id;
     private String name;
+    private String email;
     private Integer age;
     private String currentProfession;
     private ExperienceType experience;
@@ -28,6 +29,14 @@ public class CandidateRequestDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Integer getAge() {

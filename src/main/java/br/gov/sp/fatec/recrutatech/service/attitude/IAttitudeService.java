@@ -3,6 +3,7 @@ package br.gov.sp.fatec.recrutatech.service.attitude;
 import java.util.List;
 
 import br.gov.sp.fatec.recrutatech.entity.Attitude;
+import br.gov.sp.fatec.recrutatech.enums.ExperienceType;
 
 public interface IAttitudeService {
 
@@ -15,5 +16,7 @@ public interface IAttitudeService {
     public List<Attitude> updateAttitudes(List<Attitude> attitudes);
 
     public Attitude deleteAttitude(Long id);
+
+    public List<Attitude> getAttitudeByExperienceType(ExperienceType experience);
 
 }

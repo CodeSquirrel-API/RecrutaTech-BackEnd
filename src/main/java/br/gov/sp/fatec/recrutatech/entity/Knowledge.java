@@ -22,7 +22,7 @@ public class Knowledge {
     private Long id;
 
     @Size(max = 64)
-    @Column(unique = true, name = "knw_name")
+    @Column(name = "knw_name")
     private String name;
 
     @Size(max = 255)

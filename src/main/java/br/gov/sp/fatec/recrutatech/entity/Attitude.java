@@ -22,7 +22,7 @@ public class Attitude {
     private Long id;
 
     @Size(max = 64)
-    @Column(unique = true, name = "att_name")
+    @Column(name = "att_name")
     private String name;
 
     @Size(max = 255)

@@ -30,7 +30,6 @@ public class Candidate {
     @Column(name = "cnd_email")
     private String email;
 
-
     @Column(name = "cnd_age")
     private Integer age;
 

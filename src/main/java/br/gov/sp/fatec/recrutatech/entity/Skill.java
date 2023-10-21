@@ -22,7 +22,7 @@ public class Skill {
     private Long id;
 
     @Size(max = 64)
-    @Column(unique = true, name = "skl_name")
+    @Column( name = "skl_name")
     private String name;
 
     @Size(max = 255)

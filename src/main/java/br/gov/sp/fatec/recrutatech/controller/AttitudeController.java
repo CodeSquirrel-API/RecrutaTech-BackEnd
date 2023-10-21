@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.gov.sp.fatec.recrutatech.entity.Attitude;
+import br.gov.sp.fatec.recrutatech.enums.ExperienceType;
 import br.gov.sp.fatec.recrutatech.service.attitude.IAttitudeService;
 import io.swagger.annotations.Api;
 
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/attitude") 
-@Api(tags = "Attitude") 
+@RequestMapping(value = "/attitude")
+@Api(tags = "Attitude")
 
 public class AttitudeController {
 
@@ -51,5 +52,10 @@ public class AttitudeController {
     public Attitude deleteAttitude(@PathVariable("id") Long id) {
         return service.deleteAttitude(id);
     }
-}
 
+    @GetMapping(value = "/getByExperienceType/{experienceType}")
+    public List<Attitude> getAttitudeByExperienceType(
+            @PathVariable("experienceType") ExperienceType experienceType) {
+        return service.getAttitudeByExperienceType(experienceType);
+    }
+}

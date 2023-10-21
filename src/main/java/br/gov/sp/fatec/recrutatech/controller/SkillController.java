@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.gov.sp.fatec.recrutatech.entity.Skill;
+import br.gov.sp.fatec.recrutatech.enums.ExperienceType;
 import br.gov.sp.fatec.recrutatech.service.skill.ISkillService;
 import io.swagger.annotations.Api;
 
@@ -49,6 +50,12 @@ public class SkillController {
     @DeleteMapping(value = "/delete/{id}")
     public Skill deleteSkill(@PathVariable("id") Long id) {
         return service.deleteSkill(id);
+    }
+
+      @GetMapping(value = "/getByExperienceType/{experienceType}")
+    public List<Skill> getSkillByExperienceType(
+            @PathVariable("experienceType") ExperienceType experienceType) {
+        return service.getSkillByExperienceType(experienceType);
     }
 }
 

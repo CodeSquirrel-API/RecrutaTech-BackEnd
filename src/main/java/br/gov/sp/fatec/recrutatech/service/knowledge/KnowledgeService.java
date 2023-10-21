@@ -1,5 +1,6 @@
 package br.gov.sp.fatec.recrutatech.service.knowledge;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.gov.sp.fatec.recrutatech.entity.Knowledge;
+import br.gov.sp.fatec.recrutatech.enums.ExperienceType;
 import br.gov.sp.fatec.recrutatech.repository.KnowledgeRepository;
 
 @Service
@@ -50,5 +52,18 @@ public class KnowledgeService implements IKnowledgeService {
         } else {
             throw new IllegalArgumentException("ID de atitudes inválido");
         }
+    }
+
+     public List<Knowledge> getKnowledgesByExperienceType(ExperienceType experienceType) {
+        List<Knowledge> result = new ArrayList<>();
+
+        // Itera sobre todos os conhecimentos
+        for (Knowledge knowledge : knowledgeRepo.findAll()) {
+            if (knowledge.getExperience().equals(experienceType)) {
+                result.add(knowledge);
+            }
+        }
+
+        return result;
     }
 }

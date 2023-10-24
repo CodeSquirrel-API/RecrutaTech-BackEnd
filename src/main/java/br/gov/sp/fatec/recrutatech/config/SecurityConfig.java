@@ -20,11 +20,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import br.gov.sp.fatec.recrutatech.Security.SecurityFilter;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
- 
+  @Autowired
+    SecurityFilter securityFilter;
 
      @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -34,8 +37,9 @@ public class SecurityConfig {
             .authorizeHttpRequests(authorize -> {
                 authorize
                     .requestMatchers("/login/**").permitAll()
-                    .requestMatchers("/user/**").hasRole("USER");
-            });
+                    .requestMatchers("/user/**").hasRole("USER")
+                    .anyRequest().authenticated();
+            }).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

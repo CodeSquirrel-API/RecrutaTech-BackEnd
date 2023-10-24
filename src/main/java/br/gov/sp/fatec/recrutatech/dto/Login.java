@@ -7,6 +7,16 @@ public class Login {
 
     private String password;
 
+    private String token;
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
     public Login() {}
 
     public Login(String email, String password) {

@@ -50,6 +50,12 @@ public class User implements UserDetails {
         this.userType = userType;
     }
 
+    public User(String email, String password, String userType) {
+        this.password = password;
+        this.email = email;
+        this.userType = userType;
+    }
+
     public Long getId() {
         return id;
     }

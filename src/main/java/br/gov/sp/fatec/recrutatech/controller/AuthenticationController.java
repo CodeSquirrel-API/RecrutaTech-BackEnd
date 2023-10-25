@@ -17,6 +17,7 @@ import br.gov.sp.fatec.recrutatech.Security.TokenService;
 import br.gov.sp.fatec.recrutatech.dto.Login;
 import br.gov.sp.fatec.recrutatech.entity.User;
 import br.gov.sp.fatec.recrutatech.repository.UserRepository;
+import br.gov.sp.fatec.recrutatech.service.user.UserService;
 import jakarta.validation.Valid;
 
 import org.slf4j.Logger;
@@ -34,7 +35,7 @@ public class AuthenticationController {
     private TokenService tokenService;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     //private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
 
@@ -55,13 +56,14 @@ public class AuthenticationController {
     }
 
      @PostMapping("/register")
-    public Login register(@RequestBody Login login){
+    public User register(@RequestBody User user){
 
-        String encryptedPassword = new BCryptPasswordEncoder().encode(login.getPassword());
-        User newUser = new User(login.getEmail(), encryptedPassword,"ROLE_USER");
+        String encryptedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+        user.setPassword(encryptedPassword);
+        user.setUserType("ROLE_USER");
 
-        userRepository.save(newUser);
+        userService.addUser(user);
 
-        return login;
+        return user;
     }
 }

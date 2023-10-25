@@ -56,6 +56,14 @@ public class User implements UserDetails {
         this.userType = userType;
     }
 
+    public User(String name, String password, String email, String cpf_cnpj) {
+        this();
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.cpf_cnpj = cpf_cnpj;
+    }
+
     public Long getId() {
         return id;
     }

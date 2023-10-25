@@ -32,6 +32,7 @@ public class Position {
     @Column(name = "pst_experience")
     private ExperienceType experience;
 
+    
     public Position() {
 
     }

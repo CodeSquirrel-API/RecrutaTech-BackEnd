@@ -1,67 +1,64 @@
 package br.gov.sp.fatec.recrutatech.service.email;
 
-import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Random;
+import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import br.gov.sp.fatec.recrutatech.dto.emailDto;
-import br.gov.sp.fatec.recrutatech.entity.Email;
-import br.gov.sp.fatec.recrutatech.repository.EmailRepository;
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
+import br.gov.sp.fatec.recrutatech.config.EmailConfig;
+import br.gov.sp.fatec.recrutatech.dto.EmailDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class EmailService {
 
-    private final EmailRepository repository;
-    private final JavaMailSender sender;
+    private final HashMap codigos = new HashMap();
 
-    @Value("${spring.mail.username}")
-    private String supportEmail;
+    public void sendVerificationCodeEmail(EmailDto email) {
+        EmailConfig emailConfig = new EmailConfig();
+        JavaMailSender emailSender = emailConfig.javaMailSender();
+        SimpleMailMessage message = new SimpleMailMessage();
 
-    public Email sendEmail(Email email) {
+        message.setTo(email.getEmail());
+        message.setSubject("Código de verificação");
 
-        try {
-            SimpleMailMessage message = new SimpleMailMessage();
+        Integer[] randomNumbers = generateRandomNumbers(6); // Gera 6 números aleatórios
+        String code = Arrays.stream(randomNumbers)
+                .map(Object::toString)
+                .collect(Collectors.joining(""));
 
-            message.setFrom(email.getEmailFrom());
-            message.setTo(email.getEmailToto());
-            message.setSubject(email.getTitle());
-            message.setText(email.getText());
+        message.setText("Olá, seu código é: " + code);
+        codigos.put(email.getEmail(), Integer.parseInt(code));
 
-            email.setSendDate(LocalDateTime.now());
-            email.setSend(true);
+        emailSender.send(message);
 
-            sender.send(message);
-        } catch (MailException ex) {
-            email.setSend(false);
-            // log.warn("Erro na tentativa de envio de email. Message: {}",
-            // ex.getMessage());
-        } finally {
-            repository.save(email);
-        }
-
-        return email;
+        System.out.println("Email sent successfully....");
     }
 
-    public void sendEmailAuth(emailDto email) throws MessagingException {
-        MimeMessage mail = sender.createMimeMessage();
+    public boolean checkCode(String email, Integer codigo) {
+        Object codigoArmazenado = codigos.get(email);
 
-        MimeMessageHelper message = new MimeMessageHelper(mail);
+        if (codigoArmazenado != null) {
+            Integer codigoArmazenadoInt = (Integer) codigoArmazenado;
+            return codigo.equals(codigoArmazenadoInt);
+        }
 
-        message.setSubject(email.subject);
-        message.setText(email.content, true);
-        message.setFrom(supportEmail);
-        message.setTo(email.email);
+        return false;
+    }
 
-        sender.send(mail);
+    public static Integer[] generateRandomNumbers(Integer count) {
+        Random random = new Random();
+        Integer[] randomNumbers = new Integer[count];
 
+        for (int i = 0; i < count; i++) {
+            randomNumbers[i] = random.nextInt(10);
+        }
+
+        return randomNumbers;
     }
 }

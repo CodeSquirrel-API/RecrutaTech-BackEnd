@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.gov.sp.fatec.recrutatech.entity.Knowledge;
+import br.gov.sp.fatec.recrutatech.enums.ExperienceType;
 import br.gov.sp.fatec.recrutatech.service.knowledge.IKnowledgeService;
 import io.swagger.annotations.Api;
 
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/knowledge") 
-@Api(tags = "Knowledge") 
+@RequestMapping(value = "/knowledge")
+@Api(tags = "Knowledge")
 
 public class KnowledgeController {
 
@@ -51,5 +52,11 @@ public class KnowledgeController {
     public Knowledge deleteKnowledge(@PathVariable("id") Long id) {
         return service.deleteKnowledge(id);
     }
-}
 
+    @GetMapping(value = "/getByExperienceType/{experienceType}")
+    public List<Knowledge> getKnowledgesByExperienceType(
+            @PathVariable("experienceType") ExperienceType experienceType) {
+        return service.getKnowledgesByExperienceType(experienceType);
+    }
+
+}

@@ -38,7 +38,7 @@ public class SecurityConfig {
                 authorize
                     .requestMatchers("/login/**").permitAll()
                     .requestMatchers("/user/**").hasRole("USER")
-                    .anyRequest().authenticated();
+                    .anyRequest().permitAll();
             }).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

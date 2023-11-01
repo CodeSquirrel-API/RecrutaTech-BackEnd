@@ -28,6 +28,7 @@ import br.gov.sp.fatec.recrutatech.service.skill.SkillService;
 @RestController
 @CrossOrigin
 @RequestMapping("/candidates")
+@CrossOrigin
 public class CandidateController {
 
     @Autowired

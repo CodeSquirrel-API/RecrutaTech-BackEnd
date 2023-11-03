@@ -1,9 +1,12 @@
 package br.gov.sp.fatec.recrutatech.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.gov.sp.fatec.recrutatech.dto.CandidateRequestDto;
@@ -20,6 +24,7 @@ import br.gov.sp.fatec.recrutatech.entity.Attitude;
 import br.gov.sp.fatec.recrutatech.entity.Candidate;
 import br.gov.sp.fatec.recrutatech.entity.Knowledge;
 import br.gov.sp.fatec.recrutatech.entity.Skill;
+import br.gov.sp.fatec.recrutatech.enums.ExperienceType;
 import br.gov.sp.fatec.recrutatech.service.attitude.AttitudesService;
 import br.gov.sp.fatec.recrutatech.service.candidate.CandidateService;
 import br.gov.sp.fatec.recrutatech.service.knowledge.KnowledgeService;
@@ -28,7 +33,6 @@ import br.gov.sp.fatec.recrutatech.service.skill.SkillService;
 @RestController
 @CrossOrigin
 @RequestMapping("/candidates")
-@CrossOrigin
 public class CandidateController {
 
     @Autowired
@@ -152,4 +156,21 @@ public class CandidateController {
     public Candidate deleteCandidate(@PathVariable("id") Long id) {
         return service.deleteCandidate(id);
     }
-}
+    @GetMapping("/byProfessionAndExperience")
+    public ResponseEntity<Object> getCandidatesByProfessionAndExperience(
+        @RequestParam("profession") String profession,
+        @RequestParam("experience") ExperienceType experience
+    ) {
+        List<Candidate> candidates = service.getCandidatesByProfessionAndExperience(profession, experience);
+    
+        if (!candidates.isEmpty()) {
+            return new ResponseEntity<>(candidates, HttpStatus.OK);
+        } else {
+            // Customize the response when the list is empty
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "No candidates found for the given criteria.");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+    }
+    
+   }

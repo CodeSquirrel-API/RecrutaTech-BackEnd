@@ -9,7 +9,7 @@ public interface IUserService {
 
     public User findById(Long id);
 
-    public User findByEmail(EmailDto email);
+    public User findByEmail(String email);
 
     public void changePassword(EmailDto email);
 

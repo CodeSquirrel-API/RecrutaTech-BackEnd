@@ -40,6 +40,23 @@ public class EmailService {
         System.out.println("Email sent successfully....");
     }
 
+    public void sendNewPassword(EmailDto email,String password) {
+        EmailConfig emailConfig = new EmailConfig();
+        JavaMailSender emailSender = emailConfig.javaMailSender();
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        message.setTo(email.getEmail());
+        message.setSubject("Nova senha");
+
+
+        message.setText("Olá, seu código é: " + password);
+        emailSender.send(message);
+
+        System.out.println("Email sent successfully....");
+    }
+
+
+
     public boolean checkCode(String email, Integer codigo) {
         Object codigoArmazenado = codigos.get(email);
 

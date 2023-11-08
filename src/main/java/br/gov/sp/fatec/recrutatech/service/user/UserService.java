@@ -4,16 +4,26 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.gov.sp.fatec.recrutatech.dto.EmailDto;
 import br.gov.sp.fatec.recrutatech.entity.User;
+import br.gov.sp.fatec.recrutatech.exception.UserNotFoundException;
 import br.gov.sp.fatec.recrutatech.repository.UserRepository;
+import br.gov.sp.fatec.recrutatech.service.email.EmailService;
+import br.gov.sp.fatec.recrutatech.util.RandomStringGenerator;
 
 @Service
 public class UserService implements IUserService {
 
     @Autowired
     private UserRepository userRepo;
+    
+    private RandomStringGenerator randomS =new RandomStringGenerator();
+
+    @Autowired
+    private EmailService emailService;
 
     public User findById(Long id) {
         Optional<User> userOp = userRepo.findById(id);
@@ -71,5 +81,26 @@ public class UserService implements IUserService {
         } else {
             throw new IllegalArgumentException("ID de usuário inválido");
         }
+    }
+
+    @Override
+    public void changePassword(EmailDto email){
+
+        Optional<User> userOp = userRepo.findByEmail(email.getEmail());
+
+        if(userOp.isPresent()){
+
+            User user = userOp.get();
+            String newPassword=randomS.gerarStringAleatoria(12);
+            String encryptedPassword = new BCryptPasswordEncoder().encode(newPassword);
+            emailService.sendNewPassword(email,newPassword);
+
+            user.setPassword(encryptedPassword);
+            userRepo.save(user);
+
+        } else {
+            throw new UserNotFoundException("Usuário não encontrado.");
+        }
+
     }
 }

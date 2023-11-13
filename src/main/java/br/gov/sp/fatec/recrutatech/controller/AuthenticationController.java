@@ -75,7 +75,7 @@ public class AuthenticationController {
     @PutMapping("/changePassword")
 public ResponseEntity<String> changePassword(@RequestBody EmailDto email) {
     try {
-        userService.changePassword(email);
+        userService.changePasswordRandom(email);
         return new ResponseEntity<>("Email enviado com sucesso", HttpStatus.OK);
     } catch (UserNotFoundException e) {
         // Trate a exceção específica UserNotFoundException (usuário não encontrado)

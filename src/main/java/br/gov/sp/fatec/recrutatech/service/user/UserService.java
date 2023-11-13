@@ -84,7 +84,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void changePassword(EmailDto email){
+    public void changePasswordRandom(EmailDto email){
 
         Optional<User> userOp = userRepo.findByEmail(email.getEmail());
 
@@ -108,5 +108,24 @@ public class UserService implements IUserService {
     public User findByEmail(String email) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findByEmail'");
+    }
+
+    @Override
+    public void changePassword(EmailDto email,String senha) {
+
+         Optional<User> userOp = userRepo.findByEmail(email.getEmail());
+
+        if(userOp.isPresent()){
+
+            User user = userOp.get();
+            String encryptedPassword = new BCryptPasswordEncoder().encode(senha);
+
+            user.setPassword(encryptedPassword);
+            userRepo.save(user);
+
+        } else {
+            throw new UserNotFoundException("Usuário não encontrado.");
+        }
+
     }
 }

@@ -11,8 +11,9 @@ public interface IUserService {
 
     public User findByEmail(String email);
 
-    public void changePassword(EmailDto email);
+    public void changePasswordRandom(EmailDto email);
 
+    public void changePassword(EmailDto email,String senha);
 
     public User addUser(User user);
     

@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EmailService {
 
-    private final HashMap codigos = new HashMap();
+    private final HashMap<String, Integer> codigos = new HashMap<>();
 
     public void sendVerificationCodeEmail(EmailDto email) {
         EmailConfig emailConfig = new EmailConfig();
@@ -32,7 +32,11 @@ public class EmailService {
                 .map(Object::toString)
                 .collect(Collectors.joining(""));
 
-        message.setText("Olá, seu código é: " + code);
+        String htmlContent = "<html><body>";
+        htmlContent += "<h2>Olá,</h2>";
+        htmlContent += "<p>Seu código de verificação é: <strong>" + code + "</strong></p>";
+        htmlContent += "</body></html>";
+        message.setText(htmlContent);
         codigos.put(email.getEmail(), Integer.parseInt(code));
 
         emailSender.send(message);

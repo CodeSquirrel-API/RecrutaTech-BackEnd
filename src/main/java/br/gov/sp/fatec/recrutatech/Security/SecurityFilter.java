@@ -1,13 +1,12 @@
 package br.gov.sp.fatec.recrutatech.Security;
 
+import java.io.IOException;
 import java.util.Optional;
-
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.websocket.server.ServerEndpoint;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,20 +18,27 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import br.gov.sp.fatec.recrutatech.entity.User;
 import br.gov.sp.fatec.recrutatech.repository.UserRepository;
 
-
-import java.io.IOException;
-
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
+
     @Autowired
-    TokenService tokenService;
+    private TokenService tokenService;
+
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+        
+        // Adiciona configuração CORS
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+
         var token = this.recoverToken(request);
-        if(token != null){
+        if (token != null) {
             var email = tokenService.verificarToken(token);
             Optional<User> userOP = userRepository.findByEmail(email);
             User user = userOP.get();
@@ -43,11 +49,10 @@ public class SecurityFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private String recoverToken(HttpServletRequest request){
+    private String recoverToken(HttpServletRequest request) {
         var authHeader = request.getHeader("Authorization");
-        if(authHeader == null) return null;
+        if (authHeader == null)
+            return null;
         return authHeader.replace("Bearer ", "");
     }
 }
-    
-

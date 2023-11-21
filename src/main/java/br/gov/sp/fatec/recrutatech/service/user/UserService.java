@@ -105,10 +105,16 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User findByEmail(String email) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByEmail'");
+    public User findByEmail(EmailDto email) {
+    Optional<User> userOp = userRepo.findByEmail(email.getEmail());
+    
+    if (userOp.isPresent()) {
+        User user = userOp.get();
+        return user;
+    } else {
+        throw new UserNotFoundException("Usuário não encontrado.");
     }
+}
 
     @Override
     public void changePassword(EmailDto email,String senha) {

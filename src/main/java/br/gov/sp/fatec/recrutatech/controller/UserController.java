@@ -70,17 +70,32 @@ public class UserController {
 
     
     @PutMapping(value = "/changePassword/{token}/{senha}")
-public ResponseEntity<String> changePassword(
-        @PathVariable("token") String token,
-        @PathVariable("senha") String senha) {
-    EmailDto email = new EmailDto(ts.verificarToken(token));
-    
-    try {
-        service.changePassword(email, senha);
-        return ResponseEntity.ok("Senha alterada com sucesso para o usuário com o email: " + email.getEmail());
-    } catch (UserNotFoundException e) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado.");
+    public ResponseEntity<String> changePassword(
+    @PathVariable("token") String token,
+    @PathVariable("senha") String senha) {
+        EmailDto email = new EmailDto(ts.verificarToken(token));
+        
+        try {
+            service.changePassword(email, senha);
+                return ResponseEntity.ok("Senha alterada com sucesso para o usuário com o email: " + email.getEmail());
+            } 
+            catch (UserNotFoundException e) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado.");
+            }
     }
-}
+    @GetMapping(value = "/getUser/{token}")
+    public ResponseEntity<?> getUser(@PathVariable("token") String token) {
+        EmailDto email = new EmailDto(ts.verificarToken(token));
+        
+        try {
+            User user = service.findByEmail(email);
+            return ResponseEntity.ok(user);
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado.");
+        }
+    }
+
+
+
 }
     

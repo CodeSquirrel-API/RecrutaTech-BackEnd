@@ -45,7 +45,7 @@ public class AuthenticationController {
 
 
     @PostMapping("/login")
-    public String login (@RequestBody Login login) throws UsernameNotFoundException{
+    public Login login (@RequestBody Login login) throws UsernameNotFoundException{
 
     
 
@@ -55,8 +55,9 @@ public class AuthenticationController {
         Authentication authentication =  this.authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
         var usuario = (User) authentication.getPrincipal();
-        
-        return tokenService.gerarToken(usuario);
+        login.setToken(tokenService.gerarToken(usuario));
+        login.setPassword(null);
+        return login;
     }
 
      @PostMapping("/register")

@@ -25,7 +25,7 @@ public class EmailService {
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setTo(email.getEmail());
-        message.setSubject("Código de verificação");
+        message.setSubject("RecrutaTech: Código de verificação");
 
         Integer[] randomNumbers = generateRandomNumbers(6); // Gera 6 números aleatórios
         String code = Arrays.stream(randomNumbers)
@@ -33,12 +33,12 @@ public class EmailService {
                 .collect(Collectors.joining(""));
 
         String htmlContent = "<html><body>";
-        htmlContent += "<h2>Olá,</h2>";
+        htmlContent += "<h2 style='color: #333;'>Olá,</h2>";
         htmlContent += "<p>Seu código de verificação é: <strong>" + code + "</strong></p>";
         htmlContent += "</body></html>";
+                
         message.setText(htmlContent);
         codigos.put(email.getEmail(), Integer.parseInt(code));
-
         emailSender.send(message);
 
         System.out.println("Email sent successfully....");
@@ -50,10 +50,10 @@ public class EmailService {
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setTo(email.getEmail());
-        message.setSubject("Nova senha");
+        message.setSubject("RecrutaTech: Sua nova senha");
 
 
-        message.setText("Olá, seu código é: " + password);
+        message.setText("Olá, sua nova senha é: " + password);
         emailSender.send(message);
 
         System.out.println("Email sent successfully....");

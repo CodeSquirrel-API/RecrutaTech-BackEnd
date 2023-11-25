@@ -32,11 +32,7 @@ public class EmailService {
                 .map(Object::toString)
                 .collect(Collectors.joining(""));
 
-        String htmlContent = "<html><body>";
-        htmlContent += "<h2 style='color: #333;'>Olá,</h2>";
-        htmlContent += "<p>Seu código de verificação é: <strong>" + code + "</strong></p>";
-        htmlContent += "</body></html>";
-                
+        String htmlContent =  "<p>Olá, seu código de verificação é: <strong>" + code + "</strong></p>";
         message.setText(htmlContent);
         codigos.put(email.getEmail(), Integer.parseInt(code));
         emailSender.send(message);
@@ -52,8 +48,8 @@ public class EmailService {
         message.setTo(email.getEmail());
         message.setSubject("RecrutaTech: Sua nova senha");
 
-
-        message.setText("Olá, sua nova senha é: " + password);
+        String htmlContent = "<p>Olá, sua nova senha é: <strong>" + password + "</strong></p>";
+        message.setText(htmlContent);
         emailSender.send(message);
 
         System.out.println("Email sent successfully....");

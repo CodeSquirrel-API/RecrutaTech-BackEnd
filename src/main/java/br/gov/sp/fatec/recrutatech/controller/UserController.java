@@ -71,15 +71,18 @@ public class UserController {
     
     @PutMapping(value = "/changePassword/{email}/{senha}")
     public ResponseEntity<String> changePassword(
-    @PathVariable("email") String userEmail,
-    @PathVariable("senha") String senha) {
+        @PathVariable("email") String email,
+        @PathVariable("senha") String senha) {
+
         try {
-            User newUser = UserService.changePassword(userEmail, senha);
-            return ResponseEntity.ok("Senha alterada com sucesso para o usuário com o email: " + userEmail);
+            service.changePassword(new EmailDto(email), senha);
+            return ResponseEntity.ok("Senha alterada com sucesso para o usuário com o email: " + email);
         } catch (UserNotFoundException e) {
+
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado.");
         }
     }
+
     @GetMapping(value = "/getUser/{token}")
     public ResponseEntity<?> getUser(@PathVariable("token") String token) {
         EmailDto email = new EmailDto(ts.verificarToken(token));

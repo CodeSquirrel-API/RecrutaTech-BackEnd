@@ -69,7 +69,7 @@ public class UserController {
 
 
     
-    @PatchMapping(value = "/changePassword/{email}/{senha}")
+    @PutMapping(value = "/changePassword/{email}/{senha}")
     public ResponseEntity<String> changePassword(
     @PathVariable("email") String email,
     @PathVariable("senha") String senha) {
